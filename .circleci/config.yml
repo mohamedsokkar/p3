@@ -312,7 +312,7 @@ jobs:
     docker:
       - image: mareimorsy/aws-node
     steps:
-      #- checkout
+      - checkout
       - run:
           name: Save Old Workflow ID to kvdb.io
           command: |
