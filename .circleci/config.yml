@@ -277,7 +277,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      # - checkout
+      - checkout
       - run:
           name: Backend smoke test.
           command: |
