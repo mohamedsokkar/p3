@@ -208,20 +208,20 @@ jobs:
   #           # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
   #     # Here's where you will add some code to rollback on failure      
 
-  run-migrations:
-    docker: 
-      - image: mareimorsy/aws-node
+  # run-migrations:
+  #   docker: 
+  #     - image: mareimorsy/aws-node
 
-    steps:
-      - checkout
-      - run:
-          name: Run migrations
-          command: |
-            export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-            cd backend
-            npm install
-            npm run premigrations
-            npm run migrations
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Run migrations
+  #         command: |
+  #           export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+  #           cd backend
+  #           npm install
+  #           npm run premigrations
+  #           npm run migrations
 
             
 
@@ -252,35 +252,35 @@ jobs:
 
 # #       # Here's where you will add some code to rollback on failure      
                     
-#   deploy-backend:
-#     docker:
-#       - image: mareimorsy/aws-node
-#     steps:
-#       - checkout
-#       - add_ssh_keys:
-#           fingerprints: ["0d:a0:d2:30:e7:40:31:70:0e:69:45:04:ad:36:0b:8c"]
-#       - run:
-#           name: Deploy backend
-#           command: |
-#             export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-#             echo $TYPEORM_HOST >> .circleci/ansible/inventory.txt
+  deploy-backend:
+    docker:
+      - image: mareimorsy/aws-node
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["9b:92:e3:f5:aa:a7:bc:6b:bc:43:1f:a8:3b:89:10:49"]
+      - run:
+          name: Deploy backend
+          command: |
+            export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            echo $TYPEORM_HOST >> .circleci/ansible/inventory.txt
 
-#             cd backend
-#             npm i
-#             npm run build
-#             echo "TYPEORM_ENTITIES=./dist/modules/domain/**/*.entity{.ts,.js}" > .env
-#             echo "TYPEORM_HOST=${TYPEORM_HOST}" >> .env
-#             echo "TYPEORM_PORT=${TYPEORM_PORT}" >> .env
-#             echo "TYPEORM_USERNAME=${TYPEORM_USERNAME}" >> .env
-#             echo "TYPEORM_PASSWORD=${TYPEORM_PASSWORD}" >> .env
-#             echo "TYPEORM_DATABASE=${TYPEORM_DATABASE}" >> .env
-#             echo "TYPEORM_MIGRATIONS_DIR=./dist/migrations" >> .env
-#             echo "TYPEORM_MIGRATIONS=./dist/migrations/*.ts" >> .env
-#             tar -czf artifact.tar.gz dist/* package* .env
-#             cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
-#             ls ../.circleci/ansible/roles/deploy/
-#             cd ../.circleci/ansible
-#             ansible-playbook -i inventory.txt deploy-backend.yml
+            cd backend
+            npm i
+            npm run build
+            echo "TYPEORM_ENTITIES=./dist/modules/domain/**/*.entity{.ts,.js}" > .env
+            echo "TYPEORM_HOST=${TYPEORM_HOST}" >> .env
+            echo "TYPEORM_PORT=${TYPEORM_PORT}" >> .env
+            echo "TYPEORM_USERNAME=${TYPEORM_USERNAME}" >> .env
+            echo "TYPEORM_PASSWORD=${TYPEORM_PASSWORD}" >> .env
+            echo "TYPEORM_DATABASE=${TYPEORM_DATABASE}" >> .env
+            echo "TYPEORM_MIGRATIONS_DIR=./dist/migrations" >> .env
+            echo "TYPEORM_MIGRATIONS=./dist/migrations/*.ts" >> .env
+            tar -czf artifact.tar.gz dist/* package* .env
+            cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
+            ls ../.circleci/ansible/roles/deploy/
+            cd ../.circleci/ansible
+            ansible-playbook -i inventory.txt deploy-backend.yml
 #       # Here's where you will add some code to rollback on failure  
 
 #   smoke-test:
@@ -370,11 +370,11 @@ workflows:
       #         
       # - configure-infrastructure
           #requires: [deploy-infrastructure]
-      - run-migrations
+      #- run-migrations
           # requires: [configure-infrastructure]
       # - deploy-frontend:
       #     requires: [deploy-infrastructure]
-      # - deploy-backend
+      - deploy-backend
           # requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
