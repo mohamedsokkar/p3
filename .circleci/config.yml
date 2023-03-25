@@ -263,7 +263,7 @@ jobs:
           name: Deploy backend
           command: |
             #export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-            echo 54.167.146.201 >> .circleci/ansible/inventory.txt
+            #echo 54.167.146.201 >> .circleci/ansible/inventory.txt
 
             cd backend
             npm i
