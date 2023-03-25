@@ -9,7 +9,7 @@ commands:
     parameters:
       Workflow_ID:
         type: string
-        #default: ${CIRCLE_WORKFLOW_ID:0:5}
+        default: ${CIRCLE_WORKFLOW_ID:0:5}
     steps:
       - run:
           name: Destroy environment
@@ -26,7 +26,7 @@ commands:
     parameters:
       Workflow_ID:
         type: string
-        #default: ${CIRCLE_WORKFLOW_ID:0:7}
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
     steps:
       - run:
           name: Revert migrations
