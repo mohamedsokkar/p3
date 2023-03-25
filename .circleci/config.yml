@@ -312,7 +312,7 @@ jobs:
     docker:
       - image: mareimorsy/aws-node
     steps:
-      - checkout
+      #- checkout
       - run:
           name: Save Old Workflow ID to kvdb.io
           command: |
@@ -327,7 +327,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:5}" \
-              --stack-name FinalalStack
+              --stack-name InitialStack
 
 
 #   cleanup:
