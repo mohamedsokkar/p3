@@ -1,32 +1,32 @@
 ---
-- name: "upgrade packages."
-  become: true
-  apt:
-    upgrade: "yes"
+# - name: "upgrade packages."
+#   become: true
+#   apt:
+#     upgrade: "yes"
 
-- name: "install dependencies."
-  become: true
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+# - name: "install dependencies."
+#   become: true
+#   apt:
+#     name: ["nodejs", "npm"]
+#     state: latest
+#     update_cache: yes
 
-- name: "install pm2"
-  become: true
-  npm:
-    name: pm2
-    global: yes
-    production: yes
-    state: present
+# - name: "install pm2"
+#   become: true
+#   npm:
+#     name: pm2
+#     global: yes
+#     production: yes
+#     state: present
 
 
 
-- name: "install docker."
-  become: true
-  apt:
-    name: ["docker.io"]
-    state: latest
-    update_cache: yes
+# - name: "install docker."
+#   become: true
+#   apt:
+#     name: ["docker.io"]
+#     state: latest
+#     update_cache: yes
 
 # Uncomment the following to enable insecure registries with Docker
 #- name: ensure docker can use insecure registries in 10.11.0.0/16
