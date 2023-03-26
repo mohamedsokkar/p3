@@ -16,7 +16,7 @@ commands:
           when: on_fail
           command: |
             #aws cloudformation delete-stack --stack-name backend-${CIRCLE_WORKFLOW_ID:0:5}
-            aws s3 rm s3://udapeople-7cba6 --recursive
+            aws s3 rm s3://udapeople-41d98 --recursive
             aws cloudformation delete-stack --stack-name frontend-7cba6
 
 
@@ -32,8 +32,8 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure  https://kvdb.io/2Lya4PgMr5T8zKrMVjCAgW/migration_<< parameters.Workflow_ID >>)
-            echo "$SUCCESS"
+            # SUCCESS=$(curl --insecure  https://kvdb.io/2Lya4PgMr5T8zKrMVjCAgW/migration_<< parameters.Workflow_ID >>)
+            # echo "$SUCCESS"
             # Logic for reverting the database state
             if (( $SUCCESS == 1 ));
             then
@@ -366,10 +366,10 @@ workflows:
       #     requires: [configure-infrastructure]
       # - deploy-frontend
           # requires: [deploy-infrastructure]
-      - deploy-backend
+      #- deploy-backend
           #requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend]
+      - smoke-test
+          #requires: [deploy-backend]
       #- cloudfront-update
       #     requires: [smoke-test]
       # - cleanup:
