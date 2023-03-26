@@ -35,12 +35,12 @@ commands:
             # SUCCESS=$(curl --insecure  https://kvdb.io/2Lya4PgMr5T8zKrMVjCAgW/migration_<< parameters.Workflow_ID >>)
             # echo "$SUCCESS"
             # Logic for reverting the database state
-            if (( $SUCCESS == 1 ));
-            then
+            # if (( $SUCCESS == 1 ));
+            # then
               cd ~/project/backend
               npm install
               npm run migration:revert
-            fi
+              fi
             
 jobs:
 
@@ -295,7 +295,7 @@ jobs:
               exit 1
             fi
       #- notify_on_failure
-      - destroy_environment
+      #- destroy_environment
       - revert-migrations
 
   # cloudfront-update:
