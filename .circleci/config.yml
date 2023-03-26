@@ -33,7 +33,7 @@ commands:
           when: on_fail
           command: |
             cd backend
-            npm i
+            npm install
             npm run migration:revert
               
             
@@ -361,10 +361,10 @@ workflows:
       #     requires: [configure-infrastructure]
       # - deploy-frontend
           # requires: [deploy-infrastructure]
-      #- deploy-backend
+      - deploy-backend
           #requires: [run-migrations]
       - smoke-test
-          #requires: [deploy-backend]
+          requires: [deploy-backend]
       #- cloudfront-update
       #     requires: [smoke-test]
       # - cleanup:
