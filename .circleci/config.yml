@@ -38,7 +38,7 @@ commands:
             # if (( $SUCCESS == 1 ));
             # then
               cd backend
-              sudo npm install
+              #sudo npm install
               sudo npm run migration:revert
               fi
             
