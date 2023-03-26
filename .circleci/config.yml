@@ -194,7 +194,7 @@ jobs:
             cd .circleci/ansible
             aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
             cat inventory.txt
-            ansible-playbook -i inventory.txt configure-server.yml -vv
+            ansible-playbook -i 54.237.177.199 configure-server.yml -vv
             # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
   #     # Here's where you will add some code to rollback on failure      
 
@@ -231,10 +231,10 @@ jobs:
           name: Deploy Frontend
           command: |
             export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-             echo "API_URL=http://$BACKEND_PUBLIC_IP:3030" 
+             echo "API_URL=http://54.237.177.199_IP:3030" 
             # Build the frontend
             cd frontend
-            echo "API_URL=http://$BACKEND_PUBLIC_IP:3030" > .env
+            echo "API_URL=http://54.237.177.199:3030" > .env
             npm install
             npm run build:prod
             # aws s3 sync dist s3://udapeople-project
@@ -270,7 +270,7 @@ jobs:
             cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
             ls ../.circleci/ansible/roles/deploy/
             cd ../.circleci/ansible
-            ansible-playbook -i inventory.txt deploy-backend.yml
+            ansible-playbook -i 54.237.177.199 deploy-backend.yml
 #       # Here's where you will add some code to rollback on failure  
 
   smoke-test:
