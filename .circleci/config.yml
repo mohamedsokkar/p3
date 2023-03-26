@@ -176,23 +176,23 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["9b:92:e3:f5:aa:a7:bc:6b:bc:43:1f:a8:3b:89:10:49"]
-      # - run:
-      #     name: "Install Dependencies"
-      #     command: |
-      #       apk add ansible gzip openssh-client
+      - run:
+          name: "Install Dependencies"
+          command: |
+            apk add ansible gzip openssh-client
       - attach_workspace:
           at: ~/
-      - run:
-          name: Configure server
-          command: |
-            ls
-            pwd
-            cd .circleci/ansible
-            #aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
-            echo "54.237.177.199" > inventory.text
-            cat inventory.txt
-            ansible-playbook -i inventory.txt configure-server.yml -vv
-            # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
+      # - run:
+      #     name: Configure server
+      #     command: |
+      #       ls
+      #       pwd
+      #       cd .circleci/ansible
+      #       #aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
+      #       echo "54.237.177.199" > inventory.text
+      #       cat inventory.txt
+      #       ansible-playbook -i inventory.txt configure-server.yml -vv
+      #       # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
   #     # Here's where you will add some code to rollback on failure      
 
   run-migrations:
@@ -356,7 +356,7 @@ workflows:
       #     filters:
       #       branches: 
       #         
-      # - configure-infrastructure
+       - configure-infrastructure
       #     requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
@@ -364,7 +364,7 @@ workflows:
           # requires: [deploy-infrastructure]
       # - deploy-backend
           #requires: [run-migrations]
-      - smoke-test
+      # - smoke-test
           # requires: [deploy-backend]
       #- cloudfront-update
       #     requires: [smoke-test]
