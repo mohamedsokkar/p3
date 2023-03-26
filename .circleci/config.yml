@@ -195,7 +195,7 @@ jobs:
             #aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
             echo "54.237.177.199" > inventory.text
             cat inventory.txt
-            ansible-playbook -i 54.237.177.199 configure-server.yml -vv
+            ansible-playbook -i inventory.txt configure-server.yml -vv
             # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
   #     # Here's where you will add some code to rollback on failure      
 
@@ -364,7 +364,7 @@ workflows:
       #     requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      - deploy-frontend
+      # - deploy-frontend
           # requires: [deploy-infrastructure]
       - deploy-backend:
           requires: [run-migrations]
