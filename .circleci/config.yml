@@ -35,7 +35,7 @@ commands:
         
             cd backend
             #sudo npm install
-            npm run migration:revert
+            sudo npm run migration:revert
               
             
 jobs:
