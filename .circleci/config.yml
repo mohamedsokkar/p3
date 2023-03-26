@@ -32,10 +32,9 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-        
             cd backend
-            #sudo npm install
-            sudo npm run migration:revert
+            npm i
+            npm run migration:revert
               
             
 jobs:
