@@ -363,7 +363,7 @@ workflows:
           # requires: [deploy-infrastructure]
       - deploy-backend
           #requires: [run-migrations]
-      - smoke-test
+      - smoke-test:
           requires: [deploy-backend]
       #- cloudfront-update
       #     requires: [smoke-test]
