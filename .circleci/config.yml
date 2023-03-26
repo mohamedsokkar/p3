@@ -33,9 +33,9 @@ commands:
           when: on_fail
           command: |
             cd backend
-            # npm install
-            # npm run migration:revert
-            ts-node -r dotenv/config node_modules/.bin/typeorm migration:revert
+            npm install
+            npm run migration:revert
+            #ts-node -r dotenv/config node_modules/.bin/typeorm migration:revert
               
             
 jobs:
@@ -272,7 +272,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: amazon/aws-cli
+      - image: mareimorsy/aws-node
     steps:
       - checkout
       - run:
@@ -356,7 +356,7 @@ workflows:
       #     filters:
       #       branches: 
       #         
-       - configure-infrastructure
+      #  - configure-infrastructure
       #     requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
@@ -364,7 +364,7 @@ workflows:
           # requires: [deploy-infrastructure]
       # - deploy-backend
           #requires: [run-migrations]
-      # - smoke-test
+      - smoke-test
           # requires: [deploy-backend]
       #- cloudfront-update
       #     requires: [smoke-test]
