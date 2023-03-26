@@ -32,9 +32,10 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            cd ~/project/backend
-            npm install
-            npm run migration:revert
+            cd backend
+            # npm install
+            # npm run migration:revert
+            ts-node -r dotenv/config node_modules/.bin/typeorm migration:revert
               
             
 jobs:
