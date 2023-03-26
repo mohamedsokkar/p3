@@ -16,8 +16,8 @@ commands:
           when: on_fail
           command: |
             #aws cloudformation delete-stack --stack-name backend-${CIRCLE_WORKFLOW_ID:0:5}
-            aws s3 rm s3://udapeople-b99ff --recursive
-            aws cloudformation delete-stack --stack-name frontend-b99ff
+            aws s3 rm s3://udapeople-7cba6 --recursive
+            aws cloudformation delete-stack --stack-name frontend-7cba6
 
 
 
@@ -192,7 +192,8 @@ jobs:
             ls
             pwd
             cd .circleci/ansible
-            aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
+            #aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
+            echo "54.237.177.199" > inventory.text
             cat inventory.txt
             ansible-playbook -i 54.237.177.199 configure-server.yml -vv
             # ansible-playbook -i 54.197.21.245 prometheus-exporter.yml -vv
@@ -238,7 +239,7 @@ jobs:
             npm install
             npm run build:prod
             # aws s3 sync dist s3://udapeople-project
-            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:5} --recursive
+            aws s3 cp dist s3://udapeople-7cba6 --recursive
 
 #       # Here's where you will add some code to rollback on failure      
                     
@@ -253,7 +254,7 @@ jobs:
           name: Deploy backend
           command: |
             export TYPEORM_HOST=$(aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-            echo $TYPEORM_HOST >> .circleci/ansible/inventory.txt
+            echo 54.237.177.199 >> .circleci/ansible/inventory.txt
 
             cd backend
             npm i
@@ -270,7 +271,7 @@ jobs:
             cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
             ls ../.circleci/ansible/roles/deploy/
             cd ../.circleci/ansible
-            ansible-playbook -i 54.237.177.199 deploy-backend.yml
+            ansible-playbook -i inventory.txt deploy-backend.yml
 #       # Here's where you will add some code to rollback on failure  
 
   smoke-test:
